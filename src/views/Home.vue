@@ -15,7 +15,7 @@
     </div>
     <div>
       <router-link
-        to="#"
+        to="/destination"
         class="large-button uppercase ff-serif text-dark bg-white"
         >Explore</router-link
       >
@@ -34,3 +34,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>

@@ -4,22 +4,61 @@
       <span aria-hidden="true">02</span> Meet your crew
     </h1>
 
-    <div class="dot-indicators flex">
-      <button aria-selected="true">
+    <div
+      @keydown="tabKeydown"
+      class="dot-indicators flex"
+      role="tablist"
+      aria-label="crew member list"
+    >
+      <button
+        @click="tabClick"
+        aria-selected="true"
+        aria-controls="commander-tab"
+        role="tab"
+        data-image="commander-image"
+        tabindex="0"
+      >
         <span class="sr-only">The commander</span>
       </button>
-      <button aria-selected="false">
+      <button
+        @click="tabClick"
+        aria-selected="false"
+        aria-controls="mission-tab"
+        role="tab"
+        data-image="mission-image"
+        tabindex="-1"
+      >
         <span class="sr-only">The mission specialist</span>
       </button>
-      <button aria-selected="false">
+      <button
+        @click="tabClick"
+        aria-selected="false"
+        aria-controls="pilot-tab"
+        role="tab"
+        data-image="pilot-image"
+        tabindex="-1"
+      >
         <span class="sr-only">The pilot</span>
       </button>
-      <button aria-selected="false">
+      <button
+        @click="tabClick"
+        aria-selected="false"
+        aria-controls="crew-tab"
+        role="tab"
+        data-image="crew-image"
+        tabindex="-1"
+      >
         <span class="sr-only">The crew engineer</span>
       </button>
     </div>
 
-    <article class="crew-details flow">
+    <!-- commander -->
+    <article
+      class="crew-details flow"
+      id="commander-tab"
+      role="tabpanel"
+      tabindex="0"
+    >
       <header class="flow flow--space-small">
         <h2 class="fs-600 ff-serif uppercase">Commander</h2>
         <p class="fs-700 uppercase ff-serif">Douglas Hurley</p>
@@ -31,7 +70,65 @@
       </p>
     </article>
 
-    <picture>
+    <!-- mission specialist -->
+    <article
+      hidden
+      class="crew-details flow"
+      id="mission-tab"
+      role="tabpanel"
+      tabindex="0"
+    >
+      <header class="flow flow--space-small">
+        <h2 class="fs-600 ff-serif uppercase">Mission SPecialist</h2>
+        <p class="fs-700 uppercase ff-serif">Mark Shuttleworth</p>
+      </header>
+      <p>
+        Mark Richard Shuttleworth is the founder and CEO of Canonical, the
+        company behind the Linux-based Ubuntu operating system. Shuttleworth
+        became the first South African to travel to space as a space tourist.
+      </p>
+    </article>
+
+    <!-- pilot -->
+    <article
+      hidden
+      class="crew-details flow"
+      id="pilot-tab"
+      role="tabpanel"
+      tabindex="0"
+    >
+      <header class="flow flow--space-small">
+        <h2 class="fs-600 ff-serif uppercase">Pilot</h2>
+        <p class="fs-700 uppercase ff-serif">Victor Glover</p>
+      </header>
+      <p>
+        Pilot on the first operational flight of the SpaceX Crew Dragon to the
+        International Space Station. Glover is a commander in the U.S. Navy
+        where he pilots an F/A-18.He was a crew member of Expedition 64, and
+        served as a station systems flight engineer.
+      </p>
+    </article>
+
+    <!-- flight engineer -->
+    <article
+      hidden
+      class="crew-details flow"
+      id="crew-tab"
+      role="tabpanel"
+      tabindex="0"
+    >
+      <header class="flow flow--space-small">
+        <h2 class="fs-600 ff-serif uppercase">Flight Engineer</h2>
+        <p class="fs-700 uppercase ff-serif">Anousheh Ansari</p>
+      </header>
+      <p>
+        Anousheh Ansari is an Iranian American engineer and co-founder of Prodea
+        Systems. Ansari was the fourth self-funded space tourist, the first
+        self-funded woman to fly to the ISS, and the first Iranian in space.
+      </p>
+    </article>
+
+    <picture id="commander-image">
       <source
         srcset="../assets/images/image-douglas-hurley.webp"
         type="image/webp"
@@ -41,10 +138,39 @@
         alt="Douglas Hurley"
       />
     </picture>
+    <picture hidden id="mission-image">
+      <source
+        srcset="../assets/images/image-mark-shuttleworth.webp"
+        type="image/webp"
+      />
+      <img
+        src="../assets/images/image-mark-shuttleworth.png"
+        alt="Mark Shuttleworth"
+      />
+    </picture>
+    <picture hidden id="pilot-image">
+      <source
+        srcset="../assets/images/image-victor-glover.webp"
+        type="image/webp"
+      />
+      <img src="../assets/images/image-victor-glover.png" alt="Victor Glover" />
+    </picture>
+    <picture hidden id="crew-image">
+      <source
+        srcset="../assets/images/image-anousheh-ansari.webp"
+        type="image/webp"
+      />
+      <img
+        src="../assets/images/image-anousheh-ansari.png"
+        alt="Anousheh Ansari"
+      />
+    </picture>
   </main>
 </template>
 
 <script>
+import { changeTabFocus, changeTabPanel } from "../helpers/tabs";
+
 export default {
   name: "Crew",
   mounted() {
@@ -52,6 +178,18 @@ export default {
   },
   unmounted() {
     document.body.classList.remove("crew");
+  },
+
+  setup() {
+    function tabKeydown(e) {
+      changeTabFocus(e);
+    }
+
+    function tabClick(e) {
+      changeTabPanel(e);
+    }
+
+    return { tabKeydown, tabClick };
   },
 };
 </script>

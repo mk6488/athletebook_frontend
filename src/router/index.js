@@ -4,6 +4,7 @@ import LTR from '../views/LTR.vue'
 import Destination from '../views/Destination.vue'
 import Crew from '../views/Crew.vue'
 import Technology from '../views/Technology.vue'
+import DesignSystem from '../views/DesignSystem.vue'
 
 const routes = [{
     path: '/',
@@ -29,6 +30,11 @@ const routes = [{
     path: '/technology',
     name: 'Technology',
     component: Technology
+  },
+  {
+    path: '/design-system',
+    name: 'DesignSystem',
+    component: DesignSystem
   },
 ]
 
